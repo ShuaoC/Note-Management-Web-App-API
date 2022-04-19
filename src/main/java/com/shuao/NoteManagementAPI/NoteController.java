@@ -11,10 +11,9 @@ import java.util.UUID;
 public class NoteController {
 
     @PostMapping("/users")
-    public String createUser(){
-        String userID = UUID.randomUUID().toString();
-        String createdDate = "" + System.currentTimeMillis();
-        return "UserID: "+ userID + " and the password is: " + createdDate;
+    public User createUser(){
+        User user = new User(UUID.randomUUID().toString(),"" + System.currentTimeMillis());
+        return user;
     }
 
 }
