@@ -3,6 +3,8 @@ package com.shuao.NoteManagementAPI;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import software.amazon.awssdk.auth.credentials.AwsCredentialsProvider;
+import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
@@ -16,20 +18,24 @@ public class NoteManagementApiApplication {
 		SpringApplication.run(NoteManagementApiApplication.class, args);
 	}
 
-//	@Bean
-//	public DynamoDbTable<User> buildTable() {
-//		DynamoDbClient client = DynamoDbClient.builder()
-//				.region(Region.US_EAST_1)
-//				.build();
-//
-//		DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
-//				.dynamoDbClient(client)
-//				.build();
-//
-//		DynamoDbTable<User> table =
-//				enhancedClient.table("User_ID_password", TableSchema.fromBean(User.class));
-//
-//		return table;
-//
-//	}
+	@Bean
+	public DynamoDbClient formClient(){
+		return DynamoDbClient.builder()
+				.credentialsProvider(DefaultCredentialsProvider.builder().build())
+				.region(Region.US_EAST_1)
+				.build();
+	}
+
+	@Bean
+	public DynamoDbEnhancedClient formEnhancedClient(DynamoDbClient client){
+		return DynamoDbEnhancedClient.builder()
+				.dynamoDbClient(client)
+				.build();
+	}
+
+	@Bean
+	public DynamoDbTable<User> formDynamoTable(DynamoDbEnhancedClient enhancedClient){
+		return enhancedClient.table("User_ID_password",TableSchema.fromBean(User.class));
+	}
+
 }
