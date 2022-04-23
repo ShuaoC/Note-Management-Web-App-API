@@ -19,11 +19,11 @@ public class User {
     }
 
     @DynamoDbPartitionKey
-    public String getUserId() {
+    public String getUserID() {
         return this.userId;
     }
 
-    public void setUserId(String id) {
+    public void setUserID(String id) {
         this.userId = id;
     }
 

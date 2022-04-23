@@ -24,7 +24,7 @@ public class NoteController {
         this.dynamoClient = dynamoClient;
     }
 
-    @GetMapping("/users")
+    @PostMapping("/users")
     public String createUser(){
         User user = new User(UUID.randomUUID().toString(),"" + System.currentTimeMillis());
         userTable.putItem(user);
