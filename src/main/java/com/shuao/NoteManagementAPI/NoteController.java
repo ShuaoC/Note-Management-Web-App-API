@@ -22,6 +22,8 @@ public class NoteController {
     private AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().build();
     private ScanRequest scanRequest = new ScanRequest()
             .withTableName("User_ID_password");
+    private ScanRequest NoteScanRequest = new ScanRequest()
+            .withTableName("notes");
 
     NoteController(DynamoDbTable<User> table, DynamoDbTable<Note> noteTable, DynamoDbClient dynamoClient) {
         this.userTable = table;
@@ -58,6 +60,14 @@ public class NoteController {
                 + "\"title\": \"" + note.getTitle() + "\"\n"
                 + "\"content\": \"" + note.getContent() + "\"\n"
                 + "\"createDate\": \"" + note.getDateCreated() + "\"";
+    }
+
+    @GetMapping("/users/{id}/notes")
+    public List fetchNote(){
+        ArrayList<Note> list = new ArrayList<Note>();
+        ScanResult result = client.scan(NoteScanRequest);
+
+        return result.getItems();
     }
 
     @RequestMapping(value = "/test", method = RequestMethod.GET)
