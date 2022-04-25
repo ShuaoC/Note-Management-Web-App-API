@@ -2,15 +2,19 @@ package com.shuao.NoteManagementAPI;
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
+import com.amazonaws.services.dynamodbv2.document.spec.DeleteItemSpec;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+import com.amazonaws.services.dynamodbv2.model.DeleteItemRequest;
 import com.amazonaws.services.dynamodbv2.model.ScanRequest;
 import com.amazonaws.services.dynamodbv2.model.ScanResult;
 import org.springframework.web.bind.annotation.*;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
+import software.amazon.awssdk.enhanced.dynamodb.Key;
+import software.amazon.awssdk.enhanced.dynamodb.model.DeleteItemEnhancedRequest;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
+import java.util.function.Consumer;
 
 @RestController
 @CrossOrigin
@@ -68,6 +72,13 @@ public class NoteController {
         ScanResult result = client.scan(NoteScanRequest);
 
         return result.getItems();
+    }
+
+    @DeleteMapping("/users/{id}/notes/{noteId}")
+    public Note deleteNote(@PathVariable String id, @PathVariable String noteId){
+        Note note = noteTable.getItem(Key.builder().partitionValue(id).sortValue(noteId).build());
+        noteTable.deleteItem(note);
+        return note;
     }
 
     @RequestMapping(value = "/test", method = RequestMethod.GET)
