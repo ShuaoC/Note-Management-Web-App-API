@@ -3,7 +3,6 @@ package com.shuao.NoteManagementAPI;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import software.amazon.awssdk.auth.credentials.AwsCredentialsProvider;
 import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
@@ -36,6 +35,11 @@ public class NoteManagementApiApplication {
 	@Bean
 	public DynamoDbTable<User> formDynamoTable(DynamoDbEnhancedClient enhancedClient){
 		return enhancedClient.table("User_ID_password",TableSchema.fromBean(User.class));
+	}
+
+	@Bean
+	public DynamoDbTable<Note> formNoteDynamoTable(DynamoDbEnhancedClient enhancedClient){
+		return enhancedClient.table("notes",TableSchema.fromBean(Note.class));
 	}
 
 }
