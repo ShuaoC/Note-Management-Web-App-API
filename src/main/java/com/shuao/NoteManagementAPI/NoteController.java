@@ -54,7 +54,9 @@ public class NoteController {
         return result.getItems();
     }
 
-    @GetMapping("/users/{id}/qr")
+    //@GetMapping("/users/{id}/qr")
+
+    @PostMapping("/users/{id}/notes")
 
 
     @RequestMapping(value = "/test", method = RequestMethod.GET)
