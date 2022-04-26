@@ -3,8 +3,6 @@ package com.shuao.NoteManagementAPI;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
 
-import java.util.UUID;
-
 @DynamoDbBean
 public class User {
 
