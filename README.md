@@ -31,4 +31,4 @@ Below are screenshots of items inside the two dynamoDB tables(user table and not
 All of the notes and users in this API are stored in DynamoDB. There are one table for notes and another table for users. The requests to fetch and create users are all correspond to appropriate Dynamo queries to fetch and insert data. The Dynamo tables are set up so that all queries that return multiple items (users or notes) use a Query against an index.
 
 # Hosting:
-This project is hosted on a EC2 instance on AWS.
+This project is hosted on a EC2 instance on AWS. It can be accessed <link href="http://44.193.212.10:8080/users" rel="here">.
