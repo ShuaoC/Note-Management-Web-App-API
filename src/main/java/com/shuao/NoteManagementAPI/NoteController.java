@@ -4,6 +4,8 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.model.ScanRequest;
 import com.amazonaws.services.dynamodbv2.model.ScanResult;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
 import software.amazon.awssdk.enhanced.dynamodb.Key;
@@ -48,15 +50,15 @@ public class NoteController {
         return result.getItems();
     }
 
-    @GetMapping("/users/{id}/qr")
-    public void generateQR(@PathVariable("id") String id) throws Exception {
-        QRcodeGenerator.generateQRCodeImage(id, 350, 350, QR_CODE_IMAGE_PATH);
-    }
-
 //    @GetMapping("/users/{id}/qr")
-//    public ResponseEntity<byte[]> generateQRCode(@PathVariable("id") String id) throws Exception {
-//        return ResponseEntity.status(HttpStatus.OK).body(QRcodeGenerator.getQRCodeImage(id, 350, 350));
+//    public void generateQR(@PathVariable("id") String id) throws Exception {
+//        QRcodeGenerator.generateQRCodeImage(id, 350, 350, QR_CODE_IMAGE_PATH);
 //    }
+
+    @GetMapping("/users/{id}/qr")
+    public ResponseEntity<byte[]> generateQRCode(@PathVariable("id") String id) throws Exception {
+        return ResponseEntity.status(HttpStatus.OK).body(QRcodeGenerator.getQRCodeImage(id, 350, 350));
+    }
 
     @PostMapping("/users/{id}/notes")
     public Note createNote(@PathVariable String id){
