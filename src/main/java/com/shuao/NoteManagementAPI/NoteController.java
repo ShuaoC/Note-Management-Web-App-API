@@ -36,11 +36,10 @@ public class NoteController {
     }
 
     @PostMapping("/users")
-    public String createUser(){
+    public User createUser(){
         User user = new User(UUID.randomUUID().toString(),"" + System.currentTimeMillis());
         userTable.putItem(user);
-        return "\"userId\": \"" + user.getUserID() + "\"\n"
-                + "\"createdDate\": \"" + user.getDateCreated() + "\"";
+        return user;
     }
 
     @GetMapping("/users")
@@ -57,13 +56,10 @@ public class NoteController {
     //@GetMapping("/users/{id}/qr")
 
     @PostMapping("/users/{id}/notes")
-    public String createNote(@PathVariable String id){
+    public Note createNote(@PathVariable String id){
         Note note = new Note(UUID.randomUUID().toString(), id, "" + System.currentTimeMillis(),"Note title","This is the body of my note");
         noteTable.putItem(note);
-        return "\"noteId\": \"" + note.getNoteID() + "\"\n"
-                + "\"title\": \"" + note.getTitle() + "\"\n"
-                + "\"content\": \"" + note.getContent() + "\"\n"
-                + "\"createDate\": \"" + note.getDateCreated() + "\"";
+        return note;
     }
 
     @GetMapping("/users/{id}/notes")
@@ -78,6 +74,7 @@ public class NoteController {
     public Note deleteNote(@PathVariable String id, @PathVariable String noteId){
         Note note = noteTable.getItem(Key.builder().partitionValue(id).sortValue(noteId).build());
         noteTable.deleteItem(note);
+
         return note;
     }
 
