@@ -4,7 +4,7 @@ This is an API that will be used by another application. This is a "backend" to 
 
 This is the backend data-storage code for the note-taking web application mentioned above. The user can call to create users, fetch users list, create notes under a user id, fetch the list of notes under a user id, or delete a note under a user id. The user can also call this api to generate a QR code for a user id.
 
-# API Screenshots:
+# The REST API:
 User is able to call this api to create a user id, this user id as well as the time it was created will be stored into dynamoDB:
 ![usercreation](https://github.com/ShuaoC/Note-Management-Web-App-API/blob/main/pics/usercreation.png)
 
@@ -27,3 +27,8 @@ Below are screenshots of items inside the two dynamoDB tables(user table and not
 ![usertable](https://github.com/ShuaoC/Note-Management-Web-App-API/blob/main/pics/useridtable.png)
 ![notestable](https://github.com/ShuaoC/Note-Management-Web-App-API/blob/main/pics/notestable.png)
 
+# Storage:
+All of the notes and users in this API are stored in DynamoDB. There are one table for notes and another table for users. The requests to fetch and create users are all correspond to appropriate Dynamo queries to fetch and insert data. The Dynamo tables are set up so that all queries that return multiple items (users or notes) use a Query against an index.
+
+# Hosting:
+This project is hosted on a EC2 instance on AWS.
