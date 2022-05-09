@@ -32,4 +32,4 @@ All of the notes and users in this API are stored in DynamoDB. There are one tab
 
 # Hosting:
 This project is hosted on a EC2 instance on AWS. It can be accessed <a href="http://44.193.212.10:8080/users">here</a>
-(Depending on the date, this link might not be accessible anymore).
+(As of May 8th, 2022 this link is no longer accessible).
